@@ -1,0 +1,55 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+<div class="col-12 col-md-10 col-lg-8">
+  <h1>{{ title }}</h1>
+  <a href="/posts/create" role="button" class="btn btn-primary" style="float: right;">New</a><br><br>
+  <form method="GET" action="" class="card card-sm align-items-center">
+    <div class="card-body row-no-gutters">
+      <div class="col-auto">
+          <input class="form-control-lg form-control-borderless" name="q" type="text" placeholder="Search Posts" value="{{ request.GET.q }}">
+          <button class="btn-lg btn-success" type="submit">Search</button>
+      </div>  
+    </div>
+  </form>
+  
+  {% for obj in object_list %}
+  <div class="row">
+    <div class="col-12 card card-body">
+      <div class="thumbnail">
+        {% if obj.image %}
+        <img src="{{ obj.image.url }}" class="img-responsive" />
+        {% endif %}
+        <div class="caption">
+          <h3>
+            <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
+            <small>{{ obj.timestamp | timesince }} ago</small>
+          </h3>
+          <p>{{ obj.content | linebreaks | truncatechars:120 }}</p>
+          <p>
+            <a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr />
+  </div>
+  <br>
+  {% endfor %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if object_list.has_previous %}
+      <a href="?page={{ object_list.previous_page_number }}&q={{ requet.GET.q }}">previous</a>
+      {% endif %}
+      <span class="current">
+        Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}
+      </span>
+      {% if object_list.has_next %}
+      <a href="?{{ page_request_var }}={{ object_list.next_page_number }}&q={{ requet.GET.q }}">Next</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+</div>
+</div>
+{% endblock content %}

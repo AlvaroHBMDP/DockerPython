@@ -1,0 +1,24 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: python trydjango19/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: mysql:5.5
+    restart: always
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_HOST: localhost
+      MYSQL_DATABASE: postsdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: qw78as45zx12
+      MYSQL_ROOT_PASSWORD: qw78as45zx12
+    ports:
+      - "3306:3306"

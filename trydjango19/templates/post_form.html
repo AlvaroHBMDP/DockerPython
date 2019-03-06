@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<div class="containr">
+  <div class="row justify-content-center">
+<div class="col-4">
+  <h1>{{ title }}</h1>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary" type="submit" value="Create Post" />
+    <a href="/posts" class="btn btn-info" role="button">Go back</a>
+  </form>
+</div>
+</div>
+</div>
+{% endblock content %}

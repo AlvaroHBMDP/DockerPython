@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block head_title %} {{ instance.title }} |
+{{ block.super }}{% endblock head_title %} {% block content %}
+<div class="container">
+  <br>
+    <div class="row card card-body">
+<div class="col-12 col-lg-8">
+  {% if instance.image %}
+  <img src="{{ instance.image.url }}" class="img-responsive" />
+  {% endif %}
+  <h1>
+    {{ title }} <small>{{ instance.timestamp }}</small>
+  </h1>
+  <a href="{{ instance.get_absolute_url }}edit" class="btn btn-primary" role="button">Edit</a>
+  <a href="{{ instance.get_absolute_url }}delete" class="btn btn-danger" role="button">Delete</a><br>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Facebook</a>
+  <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}">Twitter</a>
+  <a
+    href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ instance.title }}&summary={{ share_string }}&source={{ request.build_absolute_uri }}">Linkedin</a>
+  {{ instance.content | linebreaks }}<br />
+  <a href="/posts" class="btn btn-warning" role="button">Go back</a>
+</div>
+</div>
+</div>
+
+{% endblock content %}
